@@ -36,18 +36,18 @@ const config: AppConfig = {
   
   endpoints: {
     auth: {
-      login: '/api/v1/auth/login',
-      register: '/api/v1/auth/register',
-      registerConfirm: '/api/v1/auth/register-confirm',
-      logout: '/api/v1/auth/logout',
-      refresh: '/api/v1/auth/refresh',
-      forgot: '/api/v1/auth/forgot',
-      reset: '/api/v1/auth/reset',
+      login: '/api/v1/auth/login/',
+      register: '/api/v1/auth/register/',
+      registerConfirm: '/api/v1/auth/register-confirm/',
+      logout: '/api/v1/auth/logout/',
+      refresh: '/api/v1/auth/refresh/',
+      forgot: '/api/v1/auth/forgot/',
+      reset: '/api/v1/auth/reset/',
     },
     catalog: {
-      garments: '/api/v1/catalog/garments',
-      categories: '/api/v1/catalog/categories',
-      colors: '/api/v1/catalog/colors',
+      garments: '/api/v1/catalog/garments/',
+      categories: '/api/v1/catalog/categories/',
+      colors: '/api/v1/catalog/colors/',
     },
   },
   
