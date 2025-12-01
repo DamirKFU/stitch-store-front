@@ -56,6 +56,14 @@ class ApiService {
    * Handle API errors
    */
   private async handleResponse<T>(response: Response): Promise<APIResponse<T>> {
+    // Handle 500 - Server errors
+    if (response.status === 500) {
+      return {
+        success: false,
+        error: { message: 'Ошибка сервера, попробуйте позже' }
+      };
+    }
+
     const data: APIResponse<T> = await response.json();
 
     // Handle 401 - Unauthorized
@@ -97,7 +105,11 @@ class ApiService {
       return this.handleResponse<T>(response);
     } catch (error) {
       console.error('GET request error:', error);
-      throw error;
+      // Return 500 error response
+      return {
+        success: false,
+        error: { message: 'Ошибка сервера, попробуйте позже' }
+      };
     }
   }
 
@@ -120,7 +132,11 @@ class ApiService {
       return this.handleResponse<T>(response);
     } catch (error) {
       console.error('POST request error:', error);
-      throw error;
+      // Return 500 error response
+      return {
+        success: false,
+        error: { message: 'Ошибка сервера, попробуйте позже' }
+      };
     }
   }
 
@@ -143,7 +159,11 @@ class ApiService {
       return this.handleResponse<T>(response);
     } catch (error) {
       console.error('PUT request error:', error);
-      throw error;
+      // Return 500 error response
+      return {
+        success: false,
+        error: { message: 'Ошибка сервера, попробуйте позже' }
+      };
     }
   }
 
@@ -161,7 +181,11 @@ class ApiService {
       return this.handleResponse<T>(response);
     } catch (error) {
       console.error('DELETE request error:', error);
-      throw error;
+      // Return 500 error response
+      return {
+        success: false,
+        error: { message: 'Ошибка сервера, попробуйте позже' }
+      };
     }
   }
 }
