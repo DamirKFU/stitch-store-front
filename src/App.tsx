@@ -6,6 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
+import ForgotPassword from "./pages/ForgotPassword";
+import PasswordResetSent from "./pages/PasswordResetSent";
+import ResetPassword from "./pages/ResetPassword";
+import RegistrationSuccess from "./pages/RegistrationSuccess";
+import ConfirmRegistration from "./pages/ConfirmRegistration";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
@@ -25,6 +30,11 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/password-reset-sent" element={<PasswordResetSent />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/registration-success" element={<RegistrationSuccess />} />
+            <Route path="/confirm-registration" element={<ConfirmRegistration />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/profile" element={<Profile />} />
