@@ -67,6 +67,8 @@ const Auth = () => {
       const fieldErrors = await register(registerData);
       if (fieldErrors) {
         setRegisterErrors(fieldErrors);
+      } else {
+        navigate('/registration-success');
       }
     } catch (error) {
       // Error handled in AuthContext

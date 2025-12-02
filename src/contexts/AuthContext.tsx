@@ -54,7 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await authService.register(data);
       
       if (response.success) {
-        handleApiResponse(response, true, 'Регистрация успешна! Проверьте email для подтверждения');
         return null;
       } else {
         return handleApiResponse(response);

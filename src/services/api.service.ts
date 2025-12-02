@@ -55,7 +55,7 @@ class ApiService {
   /**
    * Handle API errors
    */
-  private async handleResponse<T>(response: Response): Promise<APIResponse<T>> {
+  private async handleResponse<T>(response: Response, endpoint: string): Promise<APIResponse<T>> {
     // Handle 500 - Server errors
     if (response.status === 500) {
       return {
@@ -67,7 +67,16 @@ class ApiService {
     const data: APIResponse<T> = await response.json();
 
     // Handle 401 - Unauthorized
-    if (response.status === 401) {
+    // Don't redirect on auth endpoints - they should handle 401 themselves
+    const authEndpoints = [
+      config.endpoints.auth.login,
+      config.endpoints.auth.register,
+      config.endpoints.auth.registerConfirm,
+      config.endpoints.auth.forgot,
+      config.endpoints.auth.reset,
+    ];
+    
+    if (response.status === 401 && !authEndpoints.includes(endpoint)) {
       this.removeCsrfToken();
       window.location.href = '/auth';
       throw new Error('Unauthorized');
@@ -102,7 +111,7 @@ class ApiService {
         credentials: 'include',
       });
 
-      return this.handleResponse<T>(response);
+      return this.handleResponse<T>(response, endpoint);
     } catch (error) {
       console.error('GET request error:', error);
       // Return 500 error response
@@ -129,7 +138,7 @@ class ApiService {
         credentials: 'include',
       });
 
-      return this.handleResponse<T>(response);
+      return this.handleResponse<T>(response, endpoint);
     } catch (error) {
       console.error('POST request error:', error);
       // Return 500 error response
@@ -156,7 +165,7 @@ class ApiService {
         credentials: 'include',
       });
 
-      return this.handleResponse<T>(response);
+      return this.handleResponse<T>(response, endpoint);
     } catch (error) {
       console.error('PUT request error:', error);
       // Return 500 error response
@@ -178,7 +187,7 @@ class ApiService {
         credentials: 'include',
       });
 
-      return this.handleResponse<T>(response);
+      return this.handleResponse<T>(response, endpoint);
     } catch (error) {
       console.error('DELETE request error:', error);
       // Return 500 error response
