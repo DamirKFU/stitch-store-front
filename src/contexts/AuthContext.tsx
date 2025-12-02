@@ -38,9 +38,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       if (response.success) {
         setIsAuthenticated(true);
-        handleApiResponse(response, true, 'Добро пожаловать!');
         return null;
       } else {
+        // Return field errors for form display, handleApiResponse shows toast for general errors
         return handleApiResponse(response);
       }
     } catch (error: any) {
@@ -56,6 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.success) {
         return null;
       } else {
+        // Return field errors for form display, handleApiResponse shows toast for general errors
         return handleApiResponse(response);
       }
     } catch (error: any) {
