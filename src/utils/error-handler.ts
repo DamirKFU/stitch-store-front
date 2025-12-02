@@ -32,12 +32,12 @@ export function handleApiResponse<T>(
   // Handle errors
   const error = response.error;
   
-  // If there are field errors, return them for form display
+  // If there are field errors, return them for form display (don't show toast)
   if (error?.fields && Object.keys(error.fields).length > 0) {
     return error.fields;
   }
 
-  // Show general error message in toast
+  // Show general error message in toast only if no field errors
   const errorMessage = error?.message || 'Произошла ошибка';
   
   toast({
