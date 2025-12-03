@@ -18,7 +18,6 @@ export function handleApiResponse<T>(
   showSuccessToast: boolean = false,
   successMessage?: string
 ): Record<string, string> | null {
-  // Handle success
   if (response.success) {
     if (showSuccessToast) {
       toast({
@@ -29,24 +28,22 @@ export function handleApiResponse<T>(
     return null;
   }
 
-  // Handle errors
-  const error = response.error;
-  
-  // If there are field errors, return them for form display (don't show toast)
-  if (error?.fields && Object.keys(error.fields).length > 0) {
-    return error.fields;
+  // Handle field-specific errors
+  if (response.error?.fields && Object.keys(response.error.fields).length > 0) {
+    return response.error.fields;
   }
 
-  // Show general error message in toast only if no field errors
-  const errorMessage = error?.message || 'Произошла ошибка';
-  
-  toast({
-    title: 'Ошибка',
-    description: errorMessage,
-    variant: 'destructive',
-  });
+  // Show toast for general errors without field associations
+  if (response.error?.message) {
+    toast({
+      title: 'Ошибка',
+      description: response.error.message,
+      variant: 'destructive',
+    });
+  }
 
-  return null;
+  // Return empty object to indicate error occurred (not null which means success)
+  return {};
 }
 
 /**

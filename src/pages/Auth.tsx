@@ -43,10 +43,12 @@ const Auth = () => {
     setIsLoading(true);
     try {
       const fieldErrors = await login(loginData);
-      if (fieldErrors) {
-        setLoginErrors(fieldErrors);
-      } else {
+      if (fieldErrors === null) {
+        // null means success
         navigate('/');
+      } else {
+        // Any object (even empty) means error
+        setLoginErrors(fieldErrors);
       }
     } catch (error) {
       // Error handled in AuthContext
@@ -67,10 +69,12 @@ const Auth = () => {
     setIsLoading(true);
     try {
       const fieldErrors = await register(registerData);
-      if (fieldErrors) {
-        setRegisterErrors(fieldErrors);
-      } else {
+      if (fieldErrors === null) {
+        // null means success
         navigate('/registration-success');
+      } else {
+        // Any object (even empty) means error
+        setRegisterErrors(fieldErrors);
       }
     } catch (error) {
       // Error handled in AuthContext
