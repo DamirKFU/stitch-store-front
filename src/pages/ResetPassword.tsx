@@ -46,22 +46,15 @@ const ResetPassword = () => {
         password,
         repeat_password: confirmPassword 
       });
+      const fieldErrors = handleApiResponse(response, true, 'Пароль успешно изменен. Войдите с новым паролем.');
       
-      if (response.success) {
-        toast({
-          title: 'Успешно',
-          description: 'Пароль успешно изменен. Войдите с новым паролем.',
-        });
+      if (fieldErrors === null) {
         navigate('/auth');
       } else {
-        const fieldErrors = handleApiResponse(response);
-        if (fieldErrors) {
-          setErrors(fieldErrors);
-        }
+        setErrors(fieldErrors);
       }
     } catch (error) {
       handleHttpError(error, 'Ошибка при сбросе пароля');
-      setTimeout(() => navigate('/auth'), 2000);
     }
   };
 
@@ -79,6 +72,12 @@ const ResetPassword = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {errors._general && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{errors._general}</AlertDescription>
+              </Alert>
+            )}
             <div>
               <Label htmlFor="password">Новый пароль</Label>
               <Input

@@ -100,6 +100,12 @@ const Auth = () => {
             {/* Login Tab */}
             <TabsContent value="login">
               <form onSubmit={handleLogin} className="space-y-4">
+                {loginErrors._general && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{loginErrors._general}</AlertDescription>
+                  </Alert>
+                )}
                 <div className="space-y-2">
                   <Label htmlFor="login-username">Имя пользователя</Label>
                   <Input
@@ -153,6 +159,12 @@ const Auth = () => {
             {/* Register Tab */}
             <TabsContent value="register">
               <form onSubmit={handleRegister} className="space-y-4">
+                {registerErrors._general && (
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>{registerErrors._general}</AlertDescription>
+                  </Alert>
+                )}
                 <div className="space-y-2">
                   <Label htmlFor="register-username">Имя пользователя</Label>
                   <Input
