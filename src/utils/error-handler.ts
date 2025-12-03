@@ -33,17 +33,13 @@ export function handleApiResponse<T>(
     return response.error.fields;
   }
 
-  // Show toast for general errors without field associations
+  // Return general error for form display (using _general key)
   if (response.error?.message) {
-    toast({
-      title: 'Ошибка',
-      description: response.error.message,
-      variant: 'destructive',
-    });
+    return { _general: response.error.message };
   }
 
-  // Return empty object to indicate error occurred (not null which means success)
-  return {};
+  // Return generic error
+  return { _general: 'Произошла ошибка' };
 }
 
 /**

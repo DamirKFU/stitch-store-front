@@ -19,14 +19,12 @@ const ForgotPassword = () => {
 
     try {
       const response = await authService.forgotPassword({ email });
+      const fieldErrors = handleApiResponse(response);
       
-      if (response.success) {
+      if (fieldErrors === null) {
         navigate('/password-reset-sent');
       } else {
-        const fieldErrors = handleApiResponse(response);
-        if (fieldErrors) {
-          setErrors(fieldErrors);
-        }
+        setErrors(fieldErrors);
       }
     } catch (error) {
       handleHttpError(error, 'Ошибка при отправке запроса');
@@ -47,6 +45,12 @@ const ForgotPassword = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {errors._general && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{errors._general}</AlertDescription>
+              </Alert>
+            )}
             <div>
               <Label htmlFor="email">Email</Label>
               <Input
